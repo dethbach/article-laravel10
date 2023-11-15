@@ -24,7 +24,7 @@ $sidetitle = 'Article';
 
     <div class="row mb-3">
         <div class="col">
-            <h3>Add New Post</h3>
+            <h3><span style="color: #fba83e;">Write </span>New Post</h3>
         </div>
     </div>
 
@@ -79,8 +79,13 @@ $sidetitle = 'Article';
                                     <label for="thumbnail" class="form-label fw-semibold">Thumbnail</label>
                                     <input class="form-control" type="file" id="thumbnail" name="thumbnail" onchange="previewImage()" required>
                                 </div>
-                                <div class="col">
+                                <div class="col-auto">
                                     <img class="img-preview img-fluid shadow" width="150" height="150" style="display: none;">
+                                </div>
+                                <div class="col align-self-center">
+                                    <label class="form-label fw-semibold text-muted">
+                                        <small>The uploaded image will be automatically resized to <span class="fw-bold" style="color:#fba83e;border-bottom: solid #383c4b 1px;">300x200 pixels</span> for optimal display. This ensures that your images fit seamlessly into our design and load quickly.</small>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -105,11 +110,6 @@ $sidetitle = 'Article';
                             </div>
                         </div>
 
-                        <div class="row mb-4 justify-content-center">
-                            <div class="col">
-                                <hr style="border:solid 4px #ccc">
-                            </div>
-                        </div>
 
                         <div class="card shadow-sm mb-4" style="border:solid 2px #ccc;">
                             <div class="card-header fw-semibold">
@@ -147,16 +147,38 @@ $sidetitle = 'Article';
                         </div>
 
                         <div class="mb-4">
+                            <hr>
+                        </div>
+
+                        @if($cities->count() >= 1)
+                        <div class="mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="YES" id="duplicate" name="duplicate" style="border-color: #000;">
                                 <label class="form-check-label fw-semibold" for="duplicate">
-                                    Create Articles for 35 Cities and Regencies?
+                                    Create Articles for <a href="/{{auth()->user()->role}}/cities" class="text-primary" target="_blank">{{$cities->count()}} Cities and Regencies</a>?
                                 </label>
                             </div>
                         </div>
+                        @endif
 
-                        <div class="mb-3">
-                            <button class="btn btn-dark btn-sm px-4"><i class="bi bi-feather"></i> Submit</button>
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="YES" id="publishNow" name="publishNow" style="border-color: #000;">
+                                <label class="form-check-label fw-semibold" for="publishNow">
+                                    Publish now?
+                                </label>
+                            </div>
+                            <label class="form-check-label text-muted" for="publishNow">
+                                <small><span class="fw-semibold" style="color:#fba83e;">'Publish Now'</span> to make it live for everyone to see.</small>
+                            </label>
+                        </div>
+
+                        <div class=" mb-4">
+                            <hr>
+                        </div>
+
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-dark-blue px-5 fw-bold shadow-sm" style="border-radius: 10px;"><i class="bi bi-feather"></i> Submit</button>
                         </div>
                     </form>
                 </div>
@@ -179,8 +201,22 @@ $sidetitle = 'Article';
         oFReader.readAsDataURL(image.files[0]);
 
         oFReader.onload = function(oFREvent) {
-            imgPreview.src = oFREvent.target.result;
-        }
+            // Create a temporary image element
+            const tempImage = new Image();
+            tempImage.src = oFREvent.target.result;
+
+            tempImage.onload = function() {
+                // Resize the image to 300x200 pixels
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 300;
+                canvas.height = 200;
+                ctx.drawImage(tempImage, 0, 0, 300, 200);
+
+                // Set the resized image as the source for the preview
+                imgPreview.src = canvas.toDataURL('image/jpeg'); // You can specify the desired format (e.g., 'image/jpeg')
+            };
+        };
     }
 </script>
 @endsection

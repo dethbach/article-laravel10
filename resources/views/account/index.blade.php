@@ -25,6 +25,58 @@ $sidetitle = 'Settings';
         border-bottom-left-radius: 0;
         border-color: #ccc;
     }
+
+    /* Define a keyframe animation named "shake" */
+    @keyframes shake {
+        0% {
+            transform: translate(0, 0);
+        }
+
+        10% {
+            transform: translate(5px, -5px);
+        }
+
+        20% {
+            transform: translate(-5px, 5px);
+        }
+
+        30% {
+            transform: translate(5px, -5px);
+        }
+
+        40% {
+            transform: translate(-5px, 5px);
+        }
+
+        50% {
+            transform: translate(5px, -5px);
+        }
+
+        60% {
+            transform: translate(-5px, 5px);
+        }
+
+        70% {
+            transform: translate(5px, -5px);
+        }
+
+        80% {
+            transform: translate(-5px, 5px);
+        }
+
+        90% {
+            transform: translate(5px, -5px);
+        }
+
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+
+    /* Apply the animation to the image element when hovering */
+    .shaking-image:hover {
+        animation: shake 4s infinite;
+    }
 </style>
 @endsection
 
@@ -33,9 +85,12 @@ $sidetitle = 'Settings';
 
 <div class="container-fluid">
 
-    <div class="row mb-3">
-        <div class="col">
-            <h3>Hi, {{$data->name}}</h3>
+    <div class="row g-2 mb-3">
+        <div class="col-auto">
+            <h3><span style="color: #fba83e;">Hi, </span>{{$data->name}}</h3>
+        </div>
+        <div class="col-auto">
+            <img class="shaking-image" src="{{asset('storage/web-material/waving_hand_FILL0_wght400_GRAD0_opsz242.png')}}" width="30px">
         </div>
     </div>
 

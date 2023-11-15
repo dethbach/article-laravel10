@@ -9,7 +9,7 @@ $sidetitle = 'Article';
 <div class="container-fluid">
     <div class="row mb-3">
         <div class="col">
-            <h3>Categories</h3>
+            <h3><span style="color: #fba83e;">Article </span>Categories</h3>
         </div>
     </div>
 

@@ -73,7 +73,7 @@ $sidetitle = 'Article';
 
     <div class="row mb-3">
         <div class="col">
-            <h3>Articles</h3>
+            <h3><span style="color: #fba83e;">Preview </span>Articles</h3>
 
             <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -123,6 +123,21 @@ $sidetitle = 'Article';
 
             <div class="card shadow-sm mb-3" style="border: transparent;border-radius:8px;">
                 <div class="card-body">
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card shadow-sm" style="border-color: #cfe2ff;">
+                                <div class="card-body">
+                                    <small class="mb-0 fw-semibold text-muted">Written by <span style="color: #224ba5;"><a href="/{{auth()->user()->role}}/account/{{$data->articleUser->username}}" target="_blank">{{$data->articleUser->name}}</a></span></small><br>
+                                    @if($data->status == true)
+                                    <small class="mb-0 fw-semibold text-muted">Published on <span style="color: #224ba5;">{!! date('d F Y, H:i', strtotime($data->created_at)) !!}</span></small>
+                                    @else
+                                    <small class="mb-0 fw-semibold text-muted">Drafted on <span style="color: #224ba5;">{!! date('d F Y, H:i', strtotime($data->created_at)) !!}</span></small>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row mb-0">
                         <div class="col">
@@ -208,7 +223,7 @@ $sidetitle = 'Article';
                         </div>
 
                         <div class="mb-3">
-                            <button class="btn btn-dark btn-sm px-4"><i class="bi bi-feather"></i> Save</button>
+                            <button class="btn btn-dark-blue px-5 fw-bold shadow-sm" style="border-radius: 10px;"><i class="bi bi-feather"></i> Save</button>
                         </div>
                     </form>
 

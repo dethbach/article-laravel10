@@ -79,25 +79,25 @@
         <div class="container my-5">
             <div class="row d-md-flex justify-content-center">
                 <div class="col-lg-6 text-start" data-aos="fade-right" data-aos-duration="2000">
-                    <p class="fw-semibold mb-0" style="color: #1748a1">Tentang Kami</p>
+                    <p class="fw-semibold mb-0" style="color: #1748a1">Pentingnya CCTV</p>
                     <h3 class="text-dark">
-                        Jual CCTV Semarang
+                        Keamanan Modern untuk Dunia Modern
                     </h3>
                     <p class="text-dark mt-4">
-                        <strong>Lorem Ipsum,</strong> dolor sit, amet consectetur adipisicing elit. Rem laudantium eos provident dignissimos nostrum mollitia inventore molestias? Quam voluptatibus cumque impedit quia laudantium fugit? Nesciunt tempore aliquid autem molestiae, rem minus officia voluptate, quam odio ratione esse! Error cupiditate enim voluptates vel repellendus minus doloribus odio quas optio repellat! Quidem.
+                        <strong>Menggarisbawahi </strong>betapa krusialnya peran CCTV dalam era keamanan yang semakin kompleks dan digital. Teknologi CCTV memberikan solusi mutakhir untuk mengawasi, merekam, dan mencegah insiden keamanan di berbagai lingkungan, mulai dari rumah hingga bisnis. Dengan kemampuan untuk memantau secara real-time dan memberikan bukti konkret, CCTV menjadi alat yang tidak boleh diabaikan dalam melindungi aset berharga dan memastikan ketenangan pikiran dalam dunia yang terus berubah ini.
                     </p>
-                    <div class="row mt-5">
+                    <div class="row mt-3">
                         <div class="col-md-8">
-                            <button class="btn button-selengkapnya text-white" style="background-color: #1748a1">
-                                <small>Selengkapnya Tentang Kami</small>
-                            </button>
+                            <a href="https://wa.me/6281225113000" class="btn button-selengkapnya text-white" style="background-color: #1748a1">
+                                <small>Konsultasikan Dengan Kami</small>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-6 d-flex justify-content-center mx-0" data-aos="fade-up" data-aos-duration="2000">
                     <div class="img-about-me" style="width: 550px !important">
-                        <img src="{{asset('storage/web-material/ikiik-studio-tbPU0maVlTM-unsplash-scaled.jpg')}}" alt="anggota_oss" height="400px" style="border-radius: 10px; width: 100% !important" class="mt-3" />
+                        <img src="{{asset('storage/web-material/pexels-cottonbro-studio-3205737.jpg')}}" alt="anggota_oss" height="400px" style="border-radius: 10px; width: 100% !important; object-fit: cover;object-position: bottom;" class="mt-3" />
                     </div>
                 </div>
             </div>
@@ -110,23 +110,23 @@
 
                 <div class="col-lg-6 d-flex justify-content-center mx-0" data-aos="fade-up" data-aos-duration="2000">
                     <div class="img-about-me" style="width: 550px !important">
-                        <img src="{{asset('storage/web-material/ikiik-studio-tbPU0maVlTM-unsplash-scaled.jpg')}}" alt="anggota_oss" height="400px" style="border-radius: 10px; width: 100% !important" class="mt-3" />
+                        <img src="{{asset('storage/web-material/pexels-cottonbro-studio-3205735.jpg')}}" alt="anggota_oss" height="400px" style="border-radius: 10px; width: 100% !important; object-fit: cover;object-position: center;" class="mt-3" />
                     </div>
                 </div>
 
                 <div class="col-lg-6 text-start" data-aos="fade-right" data-aos-duration="2000">
-                    <p class="fw-semibold mb-0" style="color: #1748a1">Tentang Kami</p>
+                    <p class="fw-semibold mb-0" style="color: #1748a1">Peran CCTV</p>
                     <h3 class="text-dark">
-                        Jual CCTV Semarang
+                        Keamanan Tanpa Kompromi: Mengapa CCTV Adalah Investasi Penting
                     </h3>
                     <p class="text-dark mt-4">
-                        <strong>Lorem Ipsum,</strong> dolor sit amet consectetur adipisicing elit. Fuga quidem iste, reprehenderit, voluptas quas voluptatibus beatae dolores officiis dolor necessitatibus quam repellat! Animi, numquam? Id quia, a, laudantium fugit facilis labore eveniet officia totam hic quaerat voluptatibus tenetur sunt tempora minus iste natus? Reprehenderit esse excepturi earum quis autem est.
+                        <strong>Menyoroti pentingnya </strong> teknologi pengawasan CCTV dalam melindungi properti Anda. Dengan CCTV, Anda memiliki kemampuan untuk mengawasi dan merekam setiap kejadian, menjadikannya alat yang tak tergantikan dalam mengidentifikasi ancaman, mencatat aktivitas yang mencurigakan, dan memberikan bukti tindakan kriminal. Investasi dalam CCTV tidak hanya memberikan rasa aman, tetapi juga memberikan solusi yang andal untuk mencegah kejadian yang tidak diinginkan. Dengan teknologi ini, Anda dapat tidur nyenyak dengan keyakinan bahwa rumah atau bisnis Anda mendapatkan perlindungan tanpa kompromi.
                     </p>
-                    <div class="row mt-5">
+                    <div class="row mt-3">
                         <div class="col-md-8">
-                            <button class="btn button-selengkapnya text-white" style="background-color: #1748a1">
-                                <small>Selengkapnya Tentang Kami</small>
-                            </button>
+                            <a href="https://wa.me/6281225113000" class="btn button-selengkapnya text-white" style="background-color: #1748a1">
+                                <small>Konsultasikan Dengan Kami</small>
+                            </a>
                         </div>
                     </div>
                 </div>

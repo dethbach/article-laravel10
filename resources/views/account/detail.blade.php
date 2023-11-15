@@ -52,10 +52,9 @@ $sidetitle = 'Settings';
                                 @if($data->photo != null)
                                 <img src="{{asset('storage/profile-pic/'.$data->photo)}}" alt="Photo {{$data->name}}" height="100px" width="100px" style="border-radius: 50%;object-fit: cover;object-position: top;">
                                 @else
-                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#B9B4C7" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                </svg>
+                                <div class="initial-pic-lg">
+                                    <div class="letter">{{substr($data->name, 0, 1)}}</div>
+                                </div>
                                 @endif
                             </div>
                             <div class="col align-self-center mb-3">
@@ -211,10 +210,9 @@ $sidetitle = 'Settings';
                                             @if($user->photo != null)
                                             <img src="{{asset('storage/profile-pic/'.$user->photo)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle" style="border-radius: 50%;object-fit: cover;object-position: top;" />
                                             @else
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="#B9B4C7" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                            </svg>
+                                            <div class="initial-pic">
+                                                <div class="letter">{{substr($user->name, 0, 1)}}</div>
+                                            </div>
                                             @endif
                                         </div>
                                         <div class="col">

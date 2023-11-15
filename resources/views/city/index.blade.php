@@ -9,7 +9,7 @@ $sidetitle = 'Settings';
 <div class="container-fluid">
     <div class="row mb-3">
         <div class="col">
-            <h3>Cities</h3>
+            <h3><span style="color: #fba83e;">Cities </span></h3>
         </div>
     </div>
 

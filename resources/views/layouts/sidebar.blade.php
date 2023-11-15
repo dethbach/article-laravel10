@@ -108,10 +108,9 @@
                                             @if(auth()->user()->photo != null)
                                             <img src="{{asset('storage/profile-pic/'.auth()->user()->photo)}}" class="circle-image" alt="Circle Image" style="border-radius: 50%;height:35px;width:35px;object-fit: cover;object-position: top;">
                                             @else
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="#ccc" class="bi bi-person-circle main-txtcolor" viewBox="0 0 16 16">
-                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                            </svg>
+                                            <div class="initial-pic-sm">
+                                                <div class="letter">{{substr(auth()->user()->name, 0, 1)}}</div>
+                                            </div>
                                             @endif
                                         </div>
                                         <div class="col text-start">

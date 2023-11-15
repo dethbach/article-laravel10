@@ -95,7 +95,8 @@ class ArticleAdminController extends Controller
     public function write()
     {
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('admin.article.write', compact('categories'));
+        $cities = City::orderBy('name', 'asc')->get();
+        return view('admin.article.write', compact('categories', 'cities'));
     }
 
     public function store(Request $request)
@@ -108,6 +109,12 @@ class ArticleAdminController extends Controller
 
         $slug = preg_replace('/[^A-Za-z0-9\-]/', '-', $request->title);
 
+        if ($request->publishNow) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+
         // Prepare common data
         $commonData = [
             'category_id' => $request->category,
@@ -119,7 +126,7 @@ class ArticleAdminController extends Controller
             'slug' => $slug,
             'meta_title' => $request->metaTitle,
             'meta_description' => $request->metaDesc,
-            'status' => false,
+            'status' => $status,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
@@ -154,8 +161,14 @@ class ArticleAdminController extends Controller
 
             Article::insert($articlesToStore);
         } else {
+
+            $uploadedImage = $request->file('thumbnail');
+            $image = Image::make($uploadedImage);
+            $image->resize(300, 200)->encode('jpg', 80);;
+
             $newthumbnailName = time() . '-' . $slug . '.' . $request->thumbnail->extension();
-            $request->thumbnail->move(public_path('storage/thumbnail-article'), $newthumbnailName);
+            // Save the resulting image for each city
+            $image->save(public_path('storage/thumbnail-article/' . $newthumbnailName));
 
             $articlesToStore = array_merge($commonData, [
                 'thumbnail' => $newthumbnailName,
@@ -170,7 +183,8 @@ class ArticleAdminController extends Controller
     // Function to add text to an image and return the modified image
     private function addTextToImage($image, $text)
     {
-        $fontSize = 30;
+        $image->resize(300, 200)->encode('jpg', 80);;
+        $fontSize = 20;
         // Calculate the maximum width for text wrapping
         $maxWidth = $image->width() - 20; // Adjust the padding as needed
 
@@ -251,7 +265,7 @@ class ArticleAdminController extends Controller
 
     public function show($slug)
     {
-        $data = Article::where('slug', $slug)->first();
+        $data = Article::with('articleUser')->where('slug', $slug)->first();
         $categories = Category::orderBy('name', 'asc')->get();
         return view('admin.article.detail', compact('data', 'categories'));
     }
