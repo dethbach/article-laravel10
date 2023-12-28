@@ -94,12 +94,23 @@ $sidetitle = 'Dashboard';
                                     <div class="container-fluid">
                                         <div class="row mb-3 g-2">
                                             <div class="col-auto">
-                                                @if($data->articleUser->photo == null)
+                                                @if($data->articleUser->photo != null)
+                                                @php
+                                                $imageLastPostsPath = 'storage/profile-pic/'.$data->articleUser->photo;
+                                                @endphp
+
+                                                @if (file_exists(public_path($imageLastPostsPath)))
+                                                <img src="{{ asset($imageLastPostsPath) }}" class="circle-image" alt="{{$data->articleUser->name}}" style="border-radius: 50%;height:45px;width:45px;object-fit: cover;object-position: top;">
+                                                @else
                                                 <div class="initial-pic">
                                                     <div class="letter">{{substr($data->articleUser->name, 0, 1)}}</div>
                                                 </div>
+                                                @endif
+
                                                 @else
-                                                <img src="{{asset('storage/profile-pic/'.$data->articleUser->photo)}}" class="circle-image" alt="{{$data->articleUser->name}}" style="border-radius: 50%;height:45px;width:45px;object-fit: cover;object-position: top;">
+                                                <div class="initial-pic">
+                                                    <div class="letter">{{substr($data->articleUser->name, 0, 1)}}</div>
+                                                </div>
                                                 @endif
                                             </div>
                                             <div class="col align-self-center">
@@ -121,7 +132,9 @@ $sidetitle = 'Dashboard';
                                         </div>
                                         <div class="row mb-0">
                                             <div class="col">
-                                                <b>{{$data->title}}</b>
+                                                <a href="/{{auth()->user()->role}}/posts/{{$data->slug}}" style="color: #265073;">
+                                                    <b>{{$data->title}}</b>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="row mb-1">
@@ -133,7 +146,7 @@ $sidetitle = 'Dashboard';
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-auto">
-                                                <a href="/{{auth()->user()->role}}/posts/{{$data->slug}}" style="color: #224ba5;">
+                                                <a href="/{{auth()->user()->role}}/posts/{{$data->slug}}" style="color: #265073;">
                                                     <small>Read post
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                                                             <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
@@ -145,21 +158,18 @@ $sidetitle = 'Dashboard';
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col">
-                                                <img src="{{asset('storage/thumbnail-article/'. $data->thumbnail)}}" height="200px" width="300px" style="border-radius: 10px;">
+                                                @php
+                                                $thumbnailPath = 'storage/thumbnail-article/'. $data->thumbnail;
+                                                @endphp
+
+                                                @if(file_exists(public_path($thumbnailPath)))
+                                                <img src="{{ asset($thumbnailPath) }}" height="200px" width="300px" style="border-radius: 10px;">
+                                                @endif
                                             </div>
                                         </div>
 
                                     </div>
 
-                                </div>
-                            </div>
-
-
-                            <div class="row mt-4">
-                                <div class="col text-center">
-                                    <a href="/{{auth()->user()->role}}/posts" class="btn btn-sm fw-bold px-4" style="background-color: #F0F0F0;color:#3C486B;border-radius:8px;">
-                                        <i class="bi bi-arrow-repeat"></i> Load More Posts
-                                    </a>
                                 </div>
                             </div>
 
@@ -188,6 +198,14 @@ $sidetitle = 'Dashboard';
                             </div>
                             @endforelse
 
+                            <div class="row mt-4">
+                                <div class="col text-center">
+                                    <a href="/{{auth()->user()->role}}/posts" class="btn btn-sm fw-bold px-4" style="background-color: #F0F0F0;color:#3C486B;border-radius:8px;">
+                                        <i class="bi bi-arrow-repeat"></i> Load More Posts
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="col-md-4 col-sm-12">
@@ -197,7 +215,7 @@ $sidetitle = 'Dashboard';
                                 <div class="card-body">
                                     <h5 class="fw-bold text-muted mb-4"><i class="bi bi-trophy-fill" style="color: #00B0FF;"></i> Top Contributor</h5>
                                     @php $i = 1; @endphp
-                                    @foreach($authors as $topAuthors)
+                                    @foreach($topAuthor as $topAuthors)
                                     <a href="/{{auth()->user()->role}}/account/{{$topAuthors->username}}">
                                         <div class="row g-3 mb-3">
                                             <div class="col-2 align-self-center">
@@ -206,17 +224,27 @@ $sidetitle = 'Dashboard';
                                                 </div>
                                             </div>
                                             <div class="col-auto align-self-center">
+                                                @if($topAuthors->photo != null)
+                                                @php
+                                                $imageTopAuthorPath = 'storage/profile-pic/'.$topAuthors->photo;
+                                                @endphp
 
-                                                @if($topAuthors->photo == null)
+                                                @if (file_exists(public_path($imageTopAuthorPath)))
+                                                <img src="{{ asset($imageTopAuthorPath) }}" class="circle-image" alt="Circle Image" style="border-radius: 50%;height:35px;width:35px;object-fit: cover;object-position: top;">
+                                                @else
                                                 <div class="initial-pic-sm">
                                                     <div class="letter">{{substr($topAuthors->name, 0, 1)}}</div>
                                                 </div>
+                                                @endif
+
                                                 @else
-                                                <img src="{{asset('storage/profile-pic/'.$topAuthors->photo)}}" class="circle-image" alt="{{$data->articleUser->name}}" style="border-radius: 50%;height:35px;width:35px;object-fit: cover;object-position: top;">
+                                                <div class="initial-pic-sm">
+                                                    <div class="letter">{{substr($topAuthors->name, 0, 1)}}</div>
+                                                </div>
                                                 @endif
                                             </div>
                                             <div class="col">
-                                                <p class="fw-semibold mb-0">{{$topAuthors->name}}</p>
+                                                <p class="fw-semibold mb-0">{{$topAuthors->name}} <small>({{$topAuthors->articles_count}})</small></p>
                                                 <p class="mb-0"><small><span>@</span>{{$topAuthors->username}}</small></p>
                                             </div>
                                         </div>

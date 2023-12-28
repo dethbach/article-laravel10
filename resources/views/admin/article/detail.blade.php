@@ -147,11 +147,22 @@ $sidetitle = 'Article';
                     <div class="row mb-4">
                         <div class="col-5">
                             <div class="thumbnail-container" data-bs-toggle="modal" data-bs-target="#modalThumbnail">
-                                <img src="{{asset('storage/thumbnail-article/'.$data->thumbnail)}}" alt="Thumbnail {{$data->title}}" class="grayscale" style="max-height:200px;max-width:200px;object-fit: cover;object-position: center;">
+
+                                @php
+                                $ThumbnailPostPath = 'storage/thumbnail-article/'.$data->thumbnail;
+                                @endphp
+
+                                @if (file_exists(public_path($ThumbnailPostPath)))
+                                <img src="{{ asset($ThumbnailPostPath) }}" alt="Thumbnail {{$data->title}}" class="grayscale" style="max-height:200px;max-width:200px;object-fit: cover;object-position: center;">
                                 <div class=" overlay">
                                     <i class="bi bi-camera-fill mb-0"></i> <!-- Bootstrap icon -->
                                     <div class="overlay-text"><small>Change Thumbnail</small></div>
                                 </div>
+                                @else
+                                <div class="px-4 pb-1" style="background-color: #F0F0F0;">
+                                    <a class="overlay-text" style="color:#4F709C!important"><small><i class="bi bi-layout-wtf"></i> Unable to load the thumbnail. Click to re-upload.</small></a>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -256,7 +267,12 @@ $sidetitle = 'Article';
                     <div class="mb-4">
                         <div class="row">
                             <div class="col-auto">
-                                <img src="{{asset('storage/thumbnail-article/'. $data->thumbnail)}}" width="200" height="200" style="object-fit: cover;object-position: center;">
+                                @php
+                                $ThumbnailEditThumbnailPath = 'storage/thumbnail-article/'.$data->thumbnail;
+                                @endphp
+                                @if (file_exists(public_path($ThumbnailEditThumbnailPath)))
+                                <img src="{{ asset($ThumbnailEditThumbnailPath) }}" width="200" height="200" style="object-fit: cover;object-position: center;">
+                                @endif
                             </div>
                             <div class="col">
                                 <img class="img-preview img-fluid shadow" style="max-height:200px;max-width:200px;object-fit: cover;object-position: center;">
@@ -270,7 +286,7 @@ $sidetitle = 'Article';
                     </div>
                 </div>
                 <div class="modal-footer flex-nowrap p-0">
-                    <button type="submit" type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right"><strong>Save</strong></button>
+                    <button type="submit" type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right"><strong>Update</strong></button>
                     <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 text-danger" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>

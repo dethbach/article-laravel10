@@ -62,6 +62,31 @@ $sidetitle = 'Article';
 
             <div class="card shadow-sm" style="border: transparent;border-radius:8px;">
                 <div class="card-body">
+                    <form action="/{{auth()->user()->role}}/post/find" method="POST">
+                        @csrf
+                        <div class="row justify-content-between mb-3">
+                            @if(isset($keyword))
+                            <div class="col-md-auto col-sm-12 align-self-center">
+                                <span class="badge yellow-badge" data-bs-toggle="tooltip" data-bs-title="Remove filter">
+                                    <div class="d-flex">
+                                        <a href="/{{auth()->user()->role}}/posts">
+                                            <span class="me-3">{{$keyword}}</span>
+                                            <i class="bi bi-x"></i>
+                                        </a>
+                                    </div>
+                                </span>
+                            </div>
+                            @else
+                            <div class="col"></div>
+                            @endif
+                            <div class="col-md-6 col-sm-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchArticle" name="searchArticle" placeholder="Find what you're looking for">
+                                    <button class="btn btn-sm btn-dark-blue"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-hover" id="table-articles">
                         <thead>
                             <tr class="table-primary">
@@ -87,7 +112,7 @@ $sidetitle = 'Article';
                                 <td>
                                     <a href="/{{auth()->user()->role}}/posts/{{$data->slug}}">
                                         @if ($title >= 50)
-                                        {{ mb_substr($data->title, 0, 50) . ' ...' }}
+                                        <small>{{ mb_substr($data->title, 0, 50) . ' ...' }}</small>
                                         @else
                                         <small>{{$data->title}}</small>
                                         @endif
@@ -112,6 +137,11 @@ $sidetitle = 'Article';
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-auto">
+                            {{ $datas->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -129,6 +159,8 @@ $sidetitle = 'Article';
     $(document).ready(function() {
         $('#table-articles').DataTable({
             "bInfo": false,
+            "bPaginate": false,
+            "bFilter": false,
         });
     });
 </script>

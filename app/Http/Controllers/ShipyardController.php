@@ -6,22 +6,17 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\RedirectResponse;
 
 class ShipyardController extends Controller
 {
     public function admin()
     {
-        $authors = DB::table('articles')
-            ->select('articles.author_id', 'users.*', DB::raw('COUNT(*) as post_count'))
-            ->join('users', 'articles.author_id', '=', 'users.id')
-            ->groupBy('articles.author_id', 'users.id')
-            ->orderBy('post_count', 'desc')
-            ->limit(3)
-            ->get();
         $datas = Article::with('articleUser', 'articleCategory')->orderBy('created_at', 'desc')->take(5)->get();
-        return view('admin.index', compact('datas', 'authors'));
+        $topAuthor = User::withCount('articles') // Count the number of articles for each user
+            ->orderByDesc('articles_count') // Order by the number of articles in descending order
+            ->take(3) // Take only the top 3
+            ->get();
+        return view('admin.index', compact('datas', 'topAuthor'));
     }
 
     public function user()

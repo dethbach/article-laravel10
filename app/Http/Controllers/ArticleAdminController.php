@@ -27,28 +27,28 @@ class ArticleAdminController extends Controller
     public function categoriesPost($slug)
     {
         $category = Category::where('slug', $slug)->first();
-        $datas = Article::with('articleCategory')->where('category_id', $category->id)->orderBy('created_at', 'desc')->get();
+        $datas = Article::with('articleCategory')->where('category_id', $category->id)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.article.article', compact('datas', 'category'));
     }
 
     public function authorPost($id)
     {
         $category = User::where('id', $id)->first();
-        $datas = Article::where('author_id', $category->id)->orderBy('created_at', 'desc')->get();
+        $datas = Article::where('author_id', $category->id)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.article.article', compact('datas', 'category'));
     }
 
     public function authorPostPublish($id)
     {
         $category = User::where('id', $id)->first();
-        $datas = Article::where('author_id', $category->id)->where('status', true)->orderBy('created_at', 'desc')->get();
+        $datas = Article::where('author_id', $category->id)->where('status', true)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.article.article', compact('datas', 'category'));
     }
 
     public function authorPostDraft($id)
     {
         $category = User::where('id', $id)->first();
-        $datas = Article::where('author_id', $category->id)->where('status', false)->orderBy('created_at', 'desc')->get();
+        $datas = Article::where('author_id', $category->id)->where('status', false)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.article.article', compact('datas', 'category'));
     }
 
@@ -88,8 +88,18 @@ class ArticleAdminController extends Controller
     public function post()
     {
         $category = null;
-        $datas = Article::with('articleUser', 'articleCategory')->orderBy('created_at', 'desc')->get();
+        $datas = Article::with('articleUser', 'articleCategory')->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.article.article', compact('datas', 'category'));
+    }
+
+    public function postSearch(Request $request)
+    {
+        $category = null;
+        $keyword = $request->searchArticle;
+        $datas = Article::with('articleUser', 'articleCategory')
+            ->where('title', 'like', '%' . $keyword . '%')
+            ->orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.article.article', compact('datas', 'category', 'keyword'));
     }
 
     public function write()
@@ -107,7 +117,7 @@ class ArticleAdminController extends Controller
             'content' => ['required']
         ]);
 
-        $slug = preg_replace('/[^A-Za-z0-9\-]/', '-', $request->title);
+        $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $request->title);
 
         if ($request->publishNow) {
             $status = true;

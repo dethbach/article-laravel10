@@ -50,7 +50,18 @@ $sidetitle = 'Settings';
                         <div class="row">
                             <div class="col-auto mb-3">
                                 @if($data->photo != null)
-                                <img src="{{asset('storage/profile-pic/'.$data->photo)}}" alt="Photo {{$data->name}}" height="100px" width="100px" style="border-radius: 50%;object-fit: cover;object-position: top;">
+                                @php
+                                $imageProfilePath = 'storage/profile-pic/'.$data->photo;
+                                @endphp
+
+                                @if (file_exists(public_path($imageProfilePath)))
+                                <img src="{{ asset($imageProfilePath) }}" alt="Photo {{$data->name}}" height="100px" width="100px" style="border-radius: 50%;object-fit: cover;object-position: top;">
+                                @else
+                                <div class="initial-pic-lg">
+                                    <div class="letter">{{substr($data->name, 0, 1)}}</div>
+                                </div>
+                                @endif
+
                                 @else
                                 <div class="initial-pic-lg">
                                     <div class="letter">{{substr($data->name, 0, 1)}}</div>
@@ -207,8 +218,20 @@ $sidetitle = 'Settings';
                                 <a href="/{{auth()->user()->role}}/account/{{$user->username}}">
                                     <div class="row g-2 mb-3">
                                         <div class="col-auto">
+
                                             @if($user->photo != null)
-                                            <img src="{{asset('storage/profile-pic/'.$user->photo)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle" style="border-radius: 50%;object-fit: cover;object-position: top;" />
+                                            @php
+                                            $imageUserPath = 'storage/profile-pic/'.$user->photo;
+                                            @endphp
+
+                                            @if (file_exists(public_path($imageUserPath)))
+                                            <img src="{{ asset($imageUserPath) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" style="border-radius: 50%;object-fit: cover;object-position: top;" />
+                                            @else
+                                            <div class="initial-pic">
+                                                <div class="letter">{{substr($user->name, 0, 1)}}</div>
+                                            </div>
+                                            @endif
+
                                             @else
                                             <div class="initial-pic">
                                                 <div class="letter">{{substr($user->name, 0, 1)}}</div>

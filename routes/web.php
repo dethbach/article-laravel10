@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'verified
     Route::post('/update-thumbnail/{id}', [ArticleAdminController::class, 'updateThumbnail'])->name('article.updateThumbnail');
 
     Route::get('/posts', [ArticleAdminController::class, 'post'])->name('article.post');
+    Route::post('/post/find', [ArticleAdminController::class, 'postSearch'])->name('article.post.search');
     Route::get('/posts/{slug}', [ArticleAdminController::class, 'show'])->name('article.show');
     Route::get('/posts/{id}/publish', [ArticleAdminController::class, 'status'])->name('article.status');
 

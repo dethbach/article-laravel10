@@ -106,7 +106,19 @@
                                     <div class="row g-2">
                                         <div class="col-auto align-self-center">
                                             @if(auth()->user()->photo != null)
-                                            <img src="{{asset('storage/profile-pic/'.auth()->user()->photo)}}" class="circle-image" alt="Circle Image" style="border-radius: 50%;height:35px;width:35px;object-fit: cover;object-position: top;">
+
+                                            @php
+                                            $imagePath = 'storage/profile-pic/'.auth()->user()->photo;
+                                            @endphp
+
+                                            @if (file_exists(public_path($imagePath)))
+                                            <img src="{{ asset($imagePath) }}" class="circle-image" alt="Circle Image" style="border-radius: 50%;height:35px;width:35px;object-fit: cover;object-position: top;">
+                                            @else
+                                            <div class="initial-pic-sm">
+                                                <div class="letter">{{substr(auth()->user()->name, 0, 1)}}</div>
+                                            </div>
+                                            @endif
+
                                             @else
                                             <div class="initial-pic-sm">
                                                 <div class="letter">{{substr(auth()->user()->name, 0, 1)}}</div>
@@ -193,7 +205,7 @@
                                     <div class="collapse" id="dashboard-settings">
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                             <li><a href="/{{auth()->user()->role}}/cities" class="btn-non-toggle d-inline-flex text-decoration-none fw-semibold align-items-center rounded ps-4 mt-1"><i class="bi bi-globe-americas me-2"></i> Cities</a></li>
-                                            <li><a href="/{{auth()->user()->role}}/profile" class="btn-non-toggle d-inline-flex text-decoration-none fw-semibold align-items-center rounded ps-4 mt-1"><i class="bi bi-person-lines-fill me-2"></i> Profile</a></li>
+                                            <li><a href="/{{auth()->user()->role}}/profile" class="btn-non-toggle d-inline-flex text-decoration-none fw-semibold align-items-center rounded ps-4 mt-1"><i class="bi bi-person-lines-fill me-2"></i> My Profile</a></li>
                                             <li><a href="/{{auth()->user()->role}}/account" class="btn-non-toggle d-inline-flex text-decoration-none fw-semibold align-items-center rounded ps-4 mt-1"><i class="bi bi-person-vcard-fill me-2"></i> Account</a></li>
                                         </ul>
                                     </div>

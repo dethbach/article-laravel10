@@ -39,8 +39,20 @@ $sidetitle = 'Settings';
                                 <td class="fw-bold">{{$i++}}.</td>
                                 <td>
                                     <div class="d-flex align-items-center">
+
                                         @if($data->photo != null)
-                                        <img src="{{asset('storage/profile-pic/'.$data->photo)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle" style="border-radius: 50%;object-fit: cover;object-position: top;" />
+                                        @php
+                                        $imageProfilePath = 'storage/profile-pic/'.$data->photo;
+                                        @endphp
+
+                                        @if (file_exists(public_path($imageProfilePath)))
+                                        <img src="{{ asset($imageProfilePath) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" style="border-radius: 50%;object-fit: cover;object-position: top;" />
+                                        @else
+                                        <div class="initial-pic">
+                                            <div class="letter">{{substr($data->name, 0, 1)}}</div>
+                                        </div>
+                                        @endif
+
                                         @else
                                         <div class="initial-pic">
                                             <div class="letter">{{substr($data->name, 0, 1)}}</div>
